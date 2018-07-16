@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.ssm.dao.EmployeeDao">
+	<insert id="insert" parameterType="Employee">
+		INSERT IGNORE INTO
+		employees(lastname,email,birth,create_time,dept_id)
+		VALUES(#{lastname},#{email},#{birth},#{createTime},#{dept.dept_id})
+	</insert>
+	<delete id="deleteEmployeeById" parameterType="Integer">
+		DELETE FROM DEPTS
+		WHERE DEPT_ID=#{deptId}
+	</delete>
+	<update id="updateEmployee" parameterType="Employee">
+		UPDATE EMPLOYEES SET 
+		LASTNAME=#{lastname},EMAIL=#{email},BIRTH=#{birth},CREATE_TIME=#{createTime},DEPT_ID=#{dept.deptId} 
+		WHERE EMPLOYEE_ID=#{employeeId}
+	</update>
+	<select id="selectAllEmployees" resultType="Employee">
+		SELECT * FROM EMPLOYEES
+		<!-- 没有做关联 -->
+	</select>
+	
+	
+	<select id="selectEmployeesByDeptId" parameterType="Integer" resultType="Employee">
+		SELECT * FROM EMPLOYEES WHERE DEPT_ID=#{deptId}
+	</select>
+</mapper>

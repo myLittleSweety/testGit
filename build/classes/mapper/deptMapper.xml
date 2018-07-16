@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iotek.ssm.dao.DeptDao">
+	<select id="selectAllDept" resultType="Dept">
+		SELECT * FROM DEPTS
+	</select>
+	<select id="selectDeptById" parameterType="Integer" resultMap="DeptMap">
+		select * from depts where dept_id=#{deptId}
+	</select>
+	<resultMap type="Dept" id="DeptMap">
+		<id property="deptId" column="dept_id"/>
+		<result property="name" column="name"/>
+		<collection property="employees" ofType="Employee" column="dept_id" select="getEmployees"></collection>
+	</resultMap>
+	<select id="getEmployees" parameterType="int" resultType="Employee">
+		SELECT * FROM EMPLOYEES WHERE DEPT_ID=#{deptId}
+	</select>
+</mapper>
